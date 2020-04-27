@@ -24,3 +24,10 @@ steps:
     backendAzureRmStorageAccountName: 'storageaccabhiaksemc1'
     backendAzureRmContainerName: 'abhiakscontainer'
     backendAzureRmKey: 'k8s-dev.tfstate'
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/aks-cluster'
+    environmentServiceName: 'azure-rm-sc-aks'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(akskey.secureFilePath)'
