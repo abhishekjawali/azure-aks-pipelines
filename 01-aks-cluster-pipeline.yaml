@@ -19,6 +19,6 @@ steps:
     backendType: 'azurerm'
     backendServiceArm: 'azure-rm-sc-aks'
     backendAzureRmResourceGroupName: 'aks-backend-rg'
-    backendAzureRmStorageAccountName: 'storageaccountabhiaksemc123'
+    backendAzureRmStorageAccountName: 'storageaccabhiaksemc1'
     backendAzureRmContainerName: 'abhiakscontainer'
     backendAzureRmKey: 'k8s-dev.tfstate'
