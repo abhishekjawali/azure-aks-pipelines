@@ -18,7 +18,9 @@ steps:
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(akskey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'azure-rm-sc-aks'
+    ensureBackend: true
     backendAzureRmResourceGroupName: 'aks-backend-rg'
+    backendAzureRmResourceGroupLocation: 'eastus'
     backendAzureRmStorageAccountName: 'storageaccabhiaksemc1'
     backendAzureRmContainerName: 'abhiakscontainer'
     backendAzureRmKey: 'k8s-dev.tfstate'
