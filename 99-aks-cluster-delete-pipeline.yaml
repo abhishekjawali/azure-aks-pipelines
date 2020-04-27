@@ -1,0 +1,33 @@
+trigger:
+  - master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - script: echo Deleting AKS!
+    displayName: "Deleting AKS"
+  - task: DownloadSecureFile@1
+    name: akskey
+    inputs:
+      secureFile: "abhi-aks.pub"
+  - task: TerraformCLI@0
+    inputs:
+      command: "init"
+      workingDirectory: "$(System.DefaultWorkingDirectory)/aks-cluster"
+      commandOptions: "-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(akskey.secureFilePath)"
+      backendType: "azurerm"
+      backendServiceArm: "azure-rm-sc-aks"
+      ensureBackend: true
+      backendAzureRmResourceGroupName: "aks-backend-rg"
+      backendAzureRmResourceGroupLocation: "eastus"
+      backendAzureRmStorageAccountName: "storageaccabhiaksemc1"
+      backendAzureRmContainerName: "abhiakscontainer"
+      backendAzureRmKey: "k8s-dev.tfstate"
+
+  - task: TerraformCLI@0
+    inputs:
+      command: "delete"
+      workingDirectory: "$(System.DefaultWorkingDirectory)/aks-cluster"
+      environmentServiceName: "azure-rm-sc-aks"
+      commandOptions: "-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(akskey.secureFilePath)"
